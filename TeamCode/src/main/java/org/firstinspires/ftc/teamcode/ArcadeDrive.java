@@ -12,20 +12,19 @@ import org.firstinspires.ftc.teamcode.drive.subsystems.CENTERSTAGE_Bot;
 public class ArcadeDrive extends OpMode {
     private final ButtonTracker fingerButton = new ButtonTracker();
     private final ButtonTracker fingerCarryButton = new ButtonTracker();
-    private final ButtonTracker autoExtendArmButton = new ButtonTracker();
     private final ButtonTracker resetArmButton = new ButtonTracker();
     private final ButtonTracker driveFlipButton = new ButtonTracker();
     private final ButtonTracker liftButton = new ButtonTracker();
     private final ButtonTracker intakeButton = new ButtonTracker();
     private final ButtonTracker ejectButton = new ButtonTracker();
     private final ButtonTracker launchButton = new ButtonTracker();
-    private final ButtonTracker holdButton = new ButtonTracker();
-    private final ButtonTracker releaseButton = new ButtonTracker();
-    private final ButtonTracker initButton = new ButtonTracker();
-    double slowdown = 0.7;
+    private final ButtonTracker extendButton = new ButtonTracker();
+    private final ButtonTracker retractButton = new ButtonTracker();
+    private final ButtonTracker climberUp = new ButtonTracker();
+    private final ButtonTracker climberDown = new ButtonTracker();
+    double slowdown = 0.4;
     double driveFlip = 1;
     boolean armOverCurrent = false;
-    boolean climberOverCurrent = false;
     private CENTERSTAGE_Bot bot;
 
     @Override
@@ -39,15 +38,17 @@ public class ArcadeDrive extends OpMode {
     @Override
     public void loop() {
         fingerButton.update(gamepad1.b);
-        fingerCarryButton.update(gamepad1.right_trigger > 0.3);
+        fingerCarryButton.update(gamepad1.right_stick_button);
         driveFlipButton.update(gamepad1.right_bumper);
         liftButton.update(gamepad1.a);
-        autoExtendArmButton.update(gamepad1.dpad_up);
-        resetArmButton.update(gamepad1.dpad_down);
+        resetArmButton.update(gamepad1.dpad_left);
         intakeButton.update(gamepad1.x);
         ejectButton.update(gamepad1.y);
         launchButton.update(gamepad1.back);
-        initButton.update(gamepad1.start);
+        extendButton.update(gamepad1.dpad_up);
+        retractButton.update(gamepad1.dpad_down);
+        climberUp.update(gamepad1.left_trigger > 0.1);
+        climberDown.update(gamepad1.right_trigger > 0.1);
 
         if (driveFlipButton.wasReleased) {
             driveFlip = -driveFlip;
@@ -58,13 +59,10 @@ public class ArcadeDrive extends OpMode {
                 -gamepad1.left_stick_x * slowdown * driveFlip,
                 -gamepad1.right_stick_x * slowdown
         );
-        if (initButton.wasPressed){
-            bot.init(Arm.FingerPosition.LOAD);
-        }
 
-        if (gamepad2.left_bumper) {
+        if (gamepad1.dpad_up) {
             bot.armExtend();
-        } else if (gamepad2.right_bumper) {
+        } else if (gamepad1.dpad_down) {
             bot.armRetract();
         }
 
@@ -82,10 +80,6 @@ public class ArcadeDrive extends OpMode {
 
         if (liftButton.wasPressed) {
             bot.toggleLift();
-        }
-
-        if (autoExtendArmButton.wasPressed) {
-            bot.autoExtendArm();
         }
 
         if (resetArmButton.wasPressed) {
@@ -128,10 +122,6 @@ public class ArcadeDrive extends OpMode {
         }
 
          */
-        if (bot.climber.holding) {
-            int current = bot.climber.climberMotor.getCurrentPosition();
-            bot.climber.climberMotor.setTargetPosition(current);
-        } else {
             if (gamepad1.left_trigger > 0.1) {
                 bot.extendClimber(gamepad1.left_trigger);
             } else if (gamepad1.right_trigger > 0.1) {
@@ -139,7 +129,6 @@ public class ArcadeDrive extends OpMode {
             } else {
                 bot.stopClimber();
             }
-        }
 
         bot.update();
         telemetry.addData("Position X", Math.toDegrees(bot.getPoseEstimateX()));
