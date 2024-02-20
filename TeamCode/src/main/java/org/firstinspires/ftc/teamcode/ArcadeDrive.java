@@ -38,17 +38,15 @@ public class ArcadeDrive extends OpMode {
 
     @Override
     public void loop() {
-        fingerButton.update(gamepad2.b);
-        fingerCarryButton.update(gamepad2.right_trigger > 0.3);
+        fingerButton.update(gamepad1.b);
+        fingerCarryButton.update(gamepad1.right_trigger > 0.3);
         driveFlipButton.update(gamepad1.right_bumper);
-        liftButton.update(gamepad2.a);
-        autoExtendArmButton.update(gamepad2.dpad_up);
-        resetArmButton.update(gamepad2.dpad_down);
-        intakeButton.update(gamepad2.x);
-        ejectButton.update(gamepad2.y);
-        launchButton.update(gamepad2.back);
-        holdButton.update(gamepad1.dpad_up);
-        releaseButton.update(gamepad1.dpad_down);
+        liftButton.update(gamepad1.a);
+        autoExtendArmButton.update(gamepad1.dpad_up);
+        resetArmButton.update(gamepad1.dpad_down);
+        intakeButton.update(gamepad1.x);
+        ejectButton.update(gamepad1.y);
+        launchButton.update(gamepad1.back);
         initButton.update(gamepad1.start);
 
         if (driveFlipButton.wasReleased) {
