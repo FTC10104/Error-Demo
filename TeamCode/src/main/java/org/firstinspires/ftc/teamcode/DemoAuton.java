@@ -21,7 +21,7 @@ public class DemoAuton extends OpMode {
         if (bot.getDistanceLeft(DistanceUnit.INCH) <= 3){
             telemetry.speak("I See you", "en", "US");
         } else if (bot.getDistanceCenter(DistanceUnit.INCH) <=3) {
-            telemetry.speak("Sneaking up behind me?", "en", "FR");
+            telemetry.speak("Sneaking up behind me?", "en", "CA");
         } else if (bot.getDistanceRight(DistanceUnit.INCH) <= 3) {
             telemetry.speak("Blud is not very sneaky", "en", "GB");
         }
