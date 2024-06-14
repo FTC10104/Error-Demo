@@ -38,16 +38,16 @@ public class TeamDrive extends OpMode {
 
     @Override
     public void loop() {
-        fingerButton.update(gamepad1.b);
-        fingerCarryButton.update(gamepad1.right_stick_button);
+        fingerButton.update(gamepad2.b);
+        fingerCarryButton.update(gamepad2.right_trigger > 0.3);
         driveFlipButton.update(gamepad1.right_bumper);
-        liftButton.update(gamepad1.a);
-        resetArmButton.update(gamepad1.dpad_left);
-        intakeButton.update(gamepad1.x);
-        ejectButton.update(gamepad1.y);
-        launchButton.update(gamepad1.back);
-        extendButton.update(gamepad1.dpad_up);
-        retractButton.update(gamepad1.dpad_down);
+        liftButton.update(gamepad2.a);
+        resetArmButton.update(gamepad2.dpad_down);
+        intakeButton.update(gamepad2.x);
+        ejectButton.update(gamepad2.y);
+        launchButton.update(gamepad2.back);
+        extendButton.update(gamepad2.left_bumper);
+        retractButton.update(gamepad2.right_bumper);
         climberUp.update(gamepad1.left_trigger > 0.1);
         climberDown.update(gamepad1.right_trigger > 0.1);
 
