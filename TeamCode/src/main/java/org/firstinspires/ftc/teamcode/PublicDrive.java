@@ -20,8 +20,8 @@ public class PublicDrive extends OpMode {
     @Override
     public void loop() {
         bot.setWeightedDrivePowers(
-                -gamepad1.left_stick_x * slowdown,
                 -gamepad1.left_stick_y * slowdown,
+                -gamepad1.left_stick_x * slowdown,
                 -gamepad1.right_stick_x * slowdown
         );
     }
